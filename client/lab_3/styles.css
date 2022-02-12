@@ -111,8 +111,14 @@
     margin-left: auto;
   }
 
-a {
+.subscribe a {
     color: #5995DA;
     text-decoration: none;
 }
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
 
