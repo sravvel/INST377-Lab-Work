@@ -126,7 +126,9 @@ a {
 
 
 
-/*RESPONSIVE*/
+/*RESPONSIVE
+***********/
+
 /* Mobile Styles */
 @media only screen and (max-width: 400px) {
   body {
@@ -134,17 +136,10 @@ a {
   }
 }
 
-/* Tablet Styles */
-@media only screen and (min-width: 401px) and (max-width: 960px) {
-  .sign-up,
-  .feature-1,
-  .feature-2,
-  .feature-3 {
-    width: 50%;
-  }
-}
+
 
 /* Desktop Styles */
+/*
 @media only screen and (min-width: 961px) {
   .page {
     width: 960px;
@@ -159,6 +154,7 @@ a {
     height: 400px;
   }
 }
+*/
 
 .sign-up {
   height: 200px;
