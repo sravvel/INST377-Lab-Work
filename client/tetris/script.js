@@ -192,6 +192,7 @@ function displayShape() {
         scoreDisplay.innerHTML = score;
         row.forEach(index => {
           squares[index].classList.remove('taken');
+          squares[index].classList.remove('tetromino');
         })
         const squaresRemoved = squares.splice(i, width);
         squares = squaresRemoved.concat(squares);
