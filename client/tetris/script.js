@@ -123,6 +123,7 @@ function moveRight() {
       currentPosition -= 1;
     }
     draw();
+    
   }
 
 
