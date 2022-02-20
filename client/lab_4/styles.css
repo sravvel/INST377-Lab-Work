@@ -97,15 +97,6 @@ position: relative;
   height: 20px;
 }
 
-.carousel .carousel_actions button#carousel_button--prev {
-  
-}
-
-.carousel .carousel_actions button#carousel_button--next {
-  /*margin-right: 20px;*/
-}
-
-
   .social,
 .subscribe {
   align-self: flex-end;
