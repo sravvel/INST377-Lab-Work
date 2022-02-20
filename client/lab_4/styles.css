@@ -53,9 +53,15 @@
     align-items: center;
   }
 
+
+.carousel_container {
+  display: flex;
+  justify-content: center;
+}
+
 .carousel {
 overflow: hidden;
-max-width: 600px;
+/*max-width: 600px;*/
 position: relative;
 }
 .carousel .carousel_item,
@@ -89,11 +95,11 @@ position: relative;
 }
 
 .carousel .carousel_actions button#carousel_button--prev {
-  margin-left: 20px;
+  
 }
 
 .carousel .carousel_actions button#carousel_button--next {
-  margin-right: 20px;
+  /*margin-right: 20px;*/
 }
 
 
