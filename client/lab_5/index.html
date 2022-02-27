@@ -14,19 +14,20 @@
     </header>
 </div>
 
-<div class="wrapper">
+<!-- added grid underneath -->
+<div class = "grid wrapper">
 <div class="columns">
-<div class="container">
-    <form action="https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json" method='get' class='speaker-form'>
+<div class="grid container">
+    <form action='https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json' method='get' class='speaker-form'>
        <!-- <div class = "grid"> -->
         <div class='form-row'>
-            <label for='full-name'>Name</label>
-            <input id='full-name' name='full-name' type='text'/>
+            <label for='name'>First Name</label>
+            <input id='name' name='name' type='text'/>
           </div>
           <div class='form-row'>
-            <label for='email'>Food Preference</label>
-            <input id='email'
-                   name='email'
+            <label for='preference'>Food Preference</label>
+            <input id='preference'
+                   name='preference'
                    type='text'/>
           </div>
           <fieldset class='legacy-form-row'>
@@ -52,8 +53,8 @@
     </form>
     </div>
 
-    <div class="grid container">
-    <header class='grid speaker-form-header-text'>
+    <div class="wrapper grid container">
+    <header class='speaker-form-header-text'>
         <p>This is going to be something in two weeks.</p>
       </header>
     </div>
