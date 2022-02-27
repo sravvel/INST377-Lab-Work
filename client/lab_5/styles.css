@@ -37,7 +37,7 @@ body {
 } 
 
 .speaker-form-header {
-  background-color: #F6F7F8;
+  background-color: #d0dfc8;
   border: 1px solid #D6D9DC;
   border-radius: 3px;
   
@@ -55,7 +55,7 @@ body {
 .speaker-form-header-text {
   display: flex;
   
-  background-color: #F6F7F8;
+  background-color: #d0dfc8;
   border: 1px solid #D6D9DC;
   border-radius: 3px;
   
@@ -66,7 +66,7 @@ body {
 }
 
 .speaker-form {
-  background-color: #F6F7F8;
+  background-color: #d0dfc8;
   border: 1px solid #D6D9DC;
   border-radius: 3px;
   
