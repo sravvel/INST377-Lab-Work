@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const grid = document.querySelector('.grid');
-    const doodler = document.createElement('div');
-    let doodlerLeftSpace = 50;
-    let startPoint = 150;
+  const grid = document.querySelector('.grid');
+  const doodler = document.createElement('div');
+  let doodlerLeftSpace = 50;
+  let startPoint = 150;
     let doodlerBottomSpace = startPoint;
     let isGameOver = false;
     let platformCount = 5;
@@ -44,7 +44,7 @@ class Platform {
 
 
 function createPlatforms(){
-    for(let i =0; i< platformCount; i++){
+    for(let i = 0; i < platformCount; i++){
         let platGap = 600 / platformCount;
         let newPlatBottom = 100 + i * platGap;
         let newPlatform = new Platform(newPlatBottom);
@@ -160,7 +160,7 @@ function moveRight(){
         if (doodlerLeftSpace <= 340) {
             doodlerLeftSpace += 5;
             doodler.style.left = doodlerLeftSpace + 'px';
-        } else moveLeft()
+        } else moveLeft();
 
     }, 30)
 }
