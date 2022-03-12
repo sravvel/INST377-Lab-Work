@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isGoingRight = false;
     let leftTimerId;
     let rightTimerId;
+    let score = 0;
 
 
 function createDoodler() {
@@ -59,6 +60,15 @@ function movePlatforms() {
             let visual = platform.visual;
             visual.style.bottom = platform.bottom + 'px';
 
+            if (platform.bottom < 10) {
+                let firstPlatform = platforms[0].visual;
+                firstPlatform.classList.remove('platform');
+                platforms.shift();
+                score++;
+                console.log(platforms);
+                let newPlatform = new Platform(600);
+                platforms.push(newPlatform);
+            }
         })
     }
 }
@@ -104,27 +114,65 @@ function fall() {
 function gameOver() {
     console.log('game over');
     isGameOver = true;
+    while (grid.firstChild) {
+        grid.removeChild(grid.firstChild)
+    }
+    grid.innerHTML = score;
     clearInterval(upTimerId);
     clearInterval(downTimerId);
+    clearInterval(leftTimerId);
+    clearInterval(rightTimerId);
 }
 
 function control(e) {
 if (e.key === "ArrowLeft"){
     moveLeft();
 } else if (e.key === "ArrowRight") {
-    //move right
-} else if (e.key === "ArrowUp"){
-    //move straight 
+    moveRight();
+} else if (e.key === "ArrowUp") {
+    moveStraight();
 }
 }
 
 function moveLeft() {
+    if (isGoingRight){
+        clearInterval(rightTimerId)
+        isGoingRight = false;
+    }
     isGoingLeft = true;
     leftTimerId = setInterval(function () {
-        doodlerLeftSpace -= 5;
-        doodler.style.left = doodlerLeftSpace + 'px';
+        //40:42 timestamp
+        if (doodlerLeftSpace >= 0){
+            doodlerLeftSpace -= 5;
+            doodler.style.left = doodlerLeftSpace + 'px';
+        } else moveRight()
+        
     },30)
 }
+
+function moveRight(){
+    if (isGoingLeft) {
+        clearInterval(leftTimerId)
+        isGoingLeft = false;
+    }
+    isGoingRight = true;
+    rightTimerId = setInterval(function () {
+        if (doodlerLeftSpace <= 340) {
+            doodlerLeftSpace += 5;
+            doodler.style.left = doodlerLeftSpace + 'px';
+        } else moveLeft()
+
+    }, 30)
+}
+
+function moveStraight() {
+    isGoingRight = false;
+    isGoingLeft = false;
+    clearInterval(rightTimerId);
+    clearInterval(leftTimerId);
+}
+
+
 
 
 function start() {
