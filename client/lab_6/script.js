@@ -5,7 +5,7 @@ function getRandomIntInclusive(min, max) {
   // The maximum is inclusive and the minimum is inclusive
 }
 
-function dataHandler(dataArray) {
+function restoArrayMake(dataArray) {
   console.log('fired datahandler');
   console.table(dataArray); // this is called "dot notation"
   const range = [...Array(15).keys()];
@@ -14,6 +14,7 @@ function dataHandler(dataArray) {
     return dataArray[restNum];
   });
   console.log(listItems);
+  return listItems;
   // forEach for reference
   // range.forEach((item) => {
   //   console.log('range item', item);
@@ -33,7 +34,7 @@ async function mainEvent() { // the async keyword means we can make API requests
       console.log('form submission'); // this is substituting for a "breakpoint"
       // arrayFromJson.data - we're accessing a key called 'data' on the returned object
       // it contains all 1,000 records we need
-      dataHandler(arrayFromJson.data);
+      const restoArray = restoArrayMake(arrayFromJson.data);
     });
   // const results = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
   }
