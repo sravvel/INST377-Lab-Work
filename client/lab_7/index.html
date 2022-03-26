@@ -1,21 +1,72 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 7</title>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"> -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class = "wrapper">
-<div class="container">
-<div class="header">Sravya's Lab</div>
-    <div class="columns">
+    <title>Sravya's Lab 5</title>
+    <link rel='stylesheet' href='styles.css'/>
+  </head>
+  <body>
+      
+      <div class = "grid">
+    <header class='speaker-form-header'>
+      <p>Sravya's Lab 5</p>
+    </header>
+</div>
+
+<!-- added grid underneath -->
+<div class = "grid wrapper">
+<div class="columns">
+<div class="grid container">
+    <form method='get' class='speaker-form'>
+       <!-- <div class = "grid"> -->
+        <div class='form-row'>
+            <label for='full-name'>First Name</label>
+            <input id='full-name' name='full-name' type='text'/>
+          </div>
+          <div class='form-row'>
+            <label for='preference'>Food Preference</label>
+            <input id='preference'
+                   name='preference'
+                   type='text'/>
+          </div>
+          <fieldset class='legacy-form-row'>
+            <legend>Veggie or Vegan?</legend>
+            <input id='talk-type-1'
+                   name='talk-type'
+                   type='radio'
+                   value='Yes' />
+            <label for='talk-type-1' class='radio-label'>Yes</label>
+            <input id='talk-type-2'
+                   name='talk-type'
+                   type='radio'
+                   value='No'
+                    />
+            <label for='talk-type-2' class='radio-label'>No</label>
+          </fieldset>
+          <div class='form-row submit_button'>
+            <button>Submit</button>
+          </div>
+       
+        <!--</div> grid-->
+
+    </form>
+    </div>
+
+  
+    <div class="wrapper grid container">
+    <header class='speaker-form-header-text'>
+        <div>
+        <p>Restaurant List</p>
+        </div>
+        <ul class = 'resto-list'></ul>
+      </header>
+    </div>
+ 
 
     </div>
 </div>
-    </div>
-    <script src="script.js"></script>  
-</body>
+
+<script src="script.js"></script>
+  </body>
 </html>
