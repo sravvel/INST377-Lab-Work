@@ -3,9 +3,9 @@ function getRandomIntInclusive(min, max) {
     const newMax = Math.floor(max);
     return Math.floor(Math.random() * (newMax - newMin + 1) + newMin);
     // The maximum is inclusive and the minimum is inclusive
-  }
-  
-  function restoArrayMake(dataArray) {
+}
+
+function restoArrayMake(dataArray) {
     // console.log('fired datahandler');
     // console.table(dataArray); // this is called "dot notation"
     const range = [...Array(15).keys()];
@@ -19,36 +19,30 @@ function getRandomIntInclusive(min, max) {
     // range.forEach((item) => {
     //   console.log('range item', item);
     // });
-  }
-  
-  function createHtmlList(collection) {
-    // console.log('fired HTML creator');
-    // console.table(collection);
-    const targetList = document.querySelector('.resto-list');
-    targetList.innerHTML = '';
-    collection.forEach((item) => {
-      const injectThisItem = `<li>${item.name}</li>`;
-      targetList.innerHTML += injectThisItem;
-    });
-  }
-  
-  async function mainEvent() { // the async keyword means we can make API requests
-    const form = document.querySelector('.speaker-form');
-    const submit = document.querySelector('.submit_button');
+}
 
-    const resto = document.querySelector('#resto_name');
-    const zipcode = document.querySelector('#zipcode');
+function createHtmlList(collection) {
+  // console.log('fired HTML creator');
+  // console.table(collection);
+  const targetList = document.querySelector('.resto-list');
+  targetList.innerHTML = '';
+  collection.forEach((item) => {
+    const injectThisItem = `<li>${item.name}</li>`;
+    targetList.innerHTML += injectThisItem;
+  });
+}
+
+async function mainEvent() { // the async keyword means we can make API requests
+  const form = document.querySelector('.speaker-form');
+  const submit = document.querySelector('.submit_button');
+
+  const resto = document.querySelector('#resto_name');
+  const zipcode = document.querySelector('#zipcode');
     submit.style.display = 'none';
   
     const results = await fetch('/api/foodServicesPG'); // This accesses some data from our API
     const arrayFromJson = await results.json(); // This changes it into data we can use - an object
     // console.log(arrayFromJson);
-  
-
-
-
-
-
 
     // prevent race condition on data load
     if (arrayFromJson.data.length > 0) {
@@ -59,17 +53,20 @@ function getRandomIntInclusive(min, max) {
       resto.addEventListener('input', async (event) => {
         console.log(event.target.value);
 
-        if (currentArray.length < 1) {
-          return;
-        }
+       // if (currentArray.length < 1) {
+        //  return;
+       // }
 
-    const selectResto = currentArray.filter((item) => {
+    const selectResto = arrayFromJson.data.filter((item) => {
       const lowerName = item.name.toLowerCase();
       const lowerValue = event.target.value.toLowerCase();
       return lowerName.includes(lowerValue);
     });
         console.log(selectResto);
         createHtmlList(selectResto);
+
+
+    
       });
 
       form.addEventListener('submit', async (submitEvent) => { // async has to be declared all the way to get an await
