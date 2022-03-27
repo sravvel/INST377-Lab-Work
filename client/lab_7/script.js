@@ -43,6 +43,9 @@ async function mainEvent() { // the async keyword means we can make API requests
     const results = await fetch('/api/foodServicesPG'); // This accesses some data from our API
     const arrayFromJson = await results.json(); // This changes it into data we can use - an object
     // console.log(arrayFromJson);
+  
+
+
 
     // prevent race condition on data load
     if (arrayFromJson.data.length > 0) {
@@ -53,21 +56,41 @@ async function mainEvent() { // the async keyword means we can make API requests
       resto.addEventListener('input', async (event) => {
         console.log(event.target.value);
 
-       // if (currentArray.length < 1) {
-        //  return;
-       // }
+       if (currentArray.length < 1) {
+          return;
+        }
 
-    const selectResto = arrayFromJson.data.filter((item) => {
+    const selectResto = currentArray.filter((item) => {
       const lowerName = item.name.toLowerCase();
       const lowerValue = event.target.value.toLowerCase();
       return lowerName.includes(lowerValue);
     });
         console.log(selectResto);
         createHtmlList(selectResto);
-
-
-    
       });
+
+
+
+
+      // TODO: filter for zipcode
+      zipcode.addEventListener('input', async (event) => {
+        console.log(event.target.value);
+       if (currentArray.length < 1) {
+          return;
+        }
+
+    const selectZip = currentArray.filter((item) => {
+      return selectZip;
+    });
+        console.log(selectZip);
+        createHtmlList(selectZip);
+      });
+
+
+
+
+
+
 
       form.addEventListener('submit', async (submitEvent) => { // async has to be declared all the way to get an await
         submitEvent.preventDefault(); // This prevents your page from refreshing!
