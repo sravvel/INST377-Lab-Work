@@ -83,7 +83,7 @@ async function mainEvent() { // the async keyword means we can make API requests
       // const item.name.includes(event.target.value);
       return  item.zip.includes(event.target.value);
     });
-        // console.log(restoZip);
+        console.log(selectZip);
         createHtmlList(selectZip);
       });
 
