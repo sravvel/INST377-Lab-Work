@@ -80,9 +80,10 @@ async function mainEvent() { // the async keyword means we can make API requests
         }
 
     const selectZip = currentArray.filter((item) => {
-      return selectZip;
+      // const item.name.includes(event.target.value);
+      return  item.zip.includes(event.target.value);
     });
-        console.log(selectZip);
+        // console.log(restoZip);
         createHtmlList(selectZip);
       });
 
