@@ -27,14 +27,15 @@ function createHtmlList(collection) {
   const targetList = document.querySelector('.resto-list');
   targetList.innerHTML = '';
   collection.forEach((item) => {
-    const injectThisItem = `<li>${item.name}</li>`;
+    const { name } = item;
+    const displayName = name.toLowerCase();
+    const injectThisItem = `<li>${displayName}</li>`;
     targetList.innerHTML += injectThisItem;
   });
 }
 
-// 19:57
 function initMap(targetID) {
-const latLong = [8.7849, 76.8721];
+const latLong = [38.7849, -76.8721];
 const map = L.map(targetID).setView(latLong, 13);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -48,6 +49,7 @@ return map;
 }
 
 async function mainEvent() { // the async keyword means we can make API requests
+  console.log('script loaded');
   const form = document.querySelector('.speaker-form');
   const submit = document.querySelector('.submit_button');
 
@@ -61,17 +63,16 @@ async function mainEvent() { // the async keyword means we can make API requests
     const results = await fetch('/api/foodServicesPG'); // This accesses some data from our API
     const arrayFromJson = await results.json(); // This changes it into data we can use - an object
     console.log(arrayFromJson);
-    localStorage.setItem(retVar, JSON.stringify(arrayFromJson));
+    localStorage.setItem(retVar, JSON.stringify(arrayFromJson.data));
   }
 
 
-  const storedData = localStorage.getItem(retVar);
- const storedDataArray = JSON.parse(storedData);
-  console.log(storedData);
+  const storedDataString = localStorage.getItem(retVar);
+  const storedDataArray = JSON.parse(storedDataString);
+  console.log(storedDataArray);
   // const arrayFromJson = {data: []}; // remove debug tool
-
   // prevent race condition on data load
-  if (storedData.length > 0) {
+  if (storedDataArray.length > 0) {
     submit.style.display = 'block';
 
 // allows us to change the var to anything, but pre-sets as array
@@ -83,7 +84,7 @@ async function mainEvent() { // the async keyword means we can make API requests
         return;
       }
 
-      const selectResto = storedData.filter((item) => {
+      const selectResto = storedDataArray.filter((item) => {
         const lowerName = item.name.toLowerCase();
         const lowerValue = event.target.value.toLowerCase();
         return lowerName.includes(lowerValue);
@@ -116,15 +117,15 @@ async function mainEvent() { // the async keyword means we can make API requests
 
 
 
-      form.addEventListener('submit', async (submitEvent) => { // async has to be declared all the way to get an await
-        submitEvent.preventDefault(); // This prevents your page from refreshing!
-        // console.log('form submission'); // this is substituting for a "breakpoint"
-        // arrayFromJson.data - we're accessing a key called 'data' on the returned object
-        // it contains all 1,000 records we need
-        currentArray = restoArrayMake(storedData);
-        createHtmlList(currentArray);
-      });
-    }
+    form.addEventListener('submit', async (submitEvent) => { // async has to be declared all the way to get an await
+      submitEvent.preventDefault(); // This prevents your page from refreshing!
+      // console.log('form submission'); // this is substituting for a "breakpoint"
+      // arrayFromJson.data - we're accessing a key called 'data' on the returned object
+      // it contains all 1,000 records we need
+      currentArray = restoArrayMake(storedDataArray);
+      createHtmlList(currentArray);
+    });
   }
-  // this actually runs first! It's calling the function above
-  document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API requests
+}
+// this actually runs first! It's calling the function above
+document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API requests
