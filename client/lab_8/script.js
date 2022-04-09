@@ -32,8 +32,10 @@ function createHtmlList(collection) {
   });
 }
 
-function initMap() {
-const map = L.map('map').setView([51.505, -0.09], 13);
+// 19:57
+function initMap(targetID) {
+const latLong = [8.7849, 76.8721];
+const map = L.map(targetID).setView(latLong, 13);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -51,37 +53,44 @@ async function mainEvent() { // the async keyword means we can make API requests
 
   const resto = document.querySelector('#resto_name');
   const zipcode = document.querySelector('#zipcode');
-  const map = initMap();
-    submit.style.display = 'none';
+  const map = initMap('map');
+  const retVar = 'restaurants';
+  submit.style.display = 'none';
   
-   // const results = await fetch('/api/foodServicesPG'); // This accesses some data from our API
-   // const arrayFromJson = await results.json(); // This changes it into data we can use - an object
-    // console.log(arrayFromJson);
-  const arrayFromJson = {data: []}; // remove debug tool
+  if (localStorage.getItem(retVar) === undefined) {
+    const results = await fetch('/api/foodServicesPG'); // This accesses some data from our API
+    const arrayFromJson = await results.json(); // This changes it into data we can use - an object
+    console.log(arrayFromJson);
+    localStorage.setItem(retVar, JSON.stringify(arrayFromJson));
+  }
 
 
+  const storedData = localStorage.getItem(retVar);
+ const storedDataArray = JSON.parse(storedData);
+  console.log(storedData);
+  // const arrayFromJson = {data: []}; // remove debug tool
 
-    // prevent race condition on data load
-    if (arrayFromJson.data.length > 0) {
-      submit.style.display = 'block';
+  // prevent race condition on data load
+  if (storedData.length > 0) {
+    submit.style.display = 'block';
 
 // allows us to change the var to anything, but pre-sets as array
-      let currentArray = [];
-      resto.addEventListener('input', async (event) => {
-        console.log(event.target.value);
+    let currentArray = [];
+    resto.addEventListener('input', async (event) => {
+      console.log(event.target.value);
 
-       if (currentArray.length < 1) {
-          return;
-        }
+      if (currentArray.length < 1) {
+        return;
+      }
 
-    const selectResto = currentArray.filter((item) => {
-      const lowerName = item.name.toLowerCase();
-      const lowerValue = event.target.value.toLowerCase();
-      return lowerName.includes(lowerValue);
-    });
-        console.log(selectResto);
-        createHtmlList(selectResto);
+      const selectResto = storedData.filter((item) => {
+        const lowerName = item.name.toLowerCase();
+        const lowerValue = event.target.value.toLowerCase();
+        return lowerName.includes(lowerValue);
       });
+      console.log(selectResto);
+      createHtmlList(selectResto);
+    });
 
 
 
@@ -112,7 +121,7 @@ async function mainEvent() { // the async keyword means we can make API requests
         // console.log('form submission'); // this is substituting for a "breakpoint"
         // arrayFromJson.data - we're accessing a key called 'data' on the returned object
         // it contains all 1,000 records we need
-        currentArray = restoArrayMake(arrayFromJson.data);
+        currentArray = restoArrayMake(storedData);
         createHtmlList(currentArray);
       });
     }
