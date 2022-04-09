@@ -4,6 +4,12 @@
     <meta charset='UTF-8'/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sravya's Lab 7</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
     <link rel='stylesheet' href='styles.css'/>
   </head>
   <body>
@@ -23,7 +29,7 @@
         <div class='form-row'>
             <label for='resto_name'>Restaurant Name</label>
             <input id='resto_name' name='resto_name' type='text'/>
-          </div>
+        </div>
             <div class='form-row'>
             <label for='zipcode'>Zipcode</label>
             <input id='zipcode' name='zipcode' type='text'/>
@@ -63,6 +69,7 @@
     <div class="wrapper grid container">
     <header class='speaker-form-header-text'>
         <div>
+        <div id="map"></div>
         <p>Restaurant List</p>
         </div>
         <ul class = 'resto-list'></ul>
