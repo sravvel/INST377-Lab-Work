@@ -48,6 +48,21 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 return map;
 }
 
+
+function addMapMarkers(map, collection) {
+  map.eachLayer((layer) => {
+    if (layer instanceof L.Marker) {
+      layer.remove();
+    }
+  });
+
+  collection.forEach((item) => {
+    const point = item.geocoded_column_1?.coordinates;
+    console.log(item.geocoded_column_1?.coordinates);
+    L.marker([point[1], point[0]]).addTo(map);
+  });
+}
+
 async function mainEvent() { // the async keyword means we can make API requests
   console.log('script loaded');
   const form = document.querySelector('.speaker-form');
@@ -58,7 +73,7 @@ async function mainEvent() { // the async keyword means we can make API requests
   const map = initMap('map');
   const retVar = 'restaurants';
   submit.style.display = 'none';
-  
+
   if (localStorage.getItem(retVar) === undefined) {
     const results = await fetch('/api/foodServicesPG'); // This accesses some data from our API
     const arrayFromJson = await results.json(); // This changes it into data we can use - an object
@@ -96,20 +111,19 @@ async function mainEvent() { // the async keyword means we can make API requests
 
 
 
-      // TODO: filter for zipcode
-      zipcode.addEventListener('input', async (event) => {
-        console.log(event.target.value);
-       if (currentArray.length < 1) {
-          return;
-        }
-
-    const selectZip = currentArray.filter((item) => {
-      // const item.name.includes(event.target.value);
-      return item.zip.includes(event.target.value);
+    // TODO: filter for zipcode
+    zipcode.addEventListener('input', async (event) => {
+      console.log(event.target.value);
+      if (currentArray.length < 1) {
+        return;
+      }
+      const selectZip = storedDataArray.filter((item) => {
+// const item.name.includes(event.target.value);
+    return item.zip.includes(event.target.value);
     });
-        console.log(selectZip);
-        createHtmlList(selectZip);
-      });
+      console.log(selectZip);
+      createHtmlList(selectZip);
+    });
 
 
 
@@ -124,6 +138,7 @@ async function mainEvent() { // the async keyword means we can make API requests
       // it contains all 1,000 records we need
       currentArray = restoArrayMake(storedDataArray);
       createHtmlList(currentArray);
+      addMapMarkers(map, currentArray);
     });
   }
 }
